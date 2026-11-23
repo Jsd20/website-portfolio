@@ -18,7 +18,12 @@
         <span class="posti-compass" aria-hidden="true">N<br>↑</span>
       </div><div class="posti-plan-footer"><span>TOCCA UN TAVOLO PER SCOPRIRLO</span><span>ORDITO / BOLOGNA</span></div></div>
       <div class="posti-panel"><p class="posti-panel-index">IL TUO TAVOLO / <span data-index>01</span></p><h3 data-name>Alla finestra</h3><p class="posti-seats" data-seats>2 persone</p><p class="posti-detail" data-detail></p><div class="posti-rule"></div><p class="posti-book-title">Immagina la tua serata</p><p class="posti-note">Aperti da giovedì a lunedì, la sera. Il tuo tavolo ti aspetta alle 20:30.</p>
-        <form class="posti-form"><label>Data<input type="date" name="date" required></label><label>Persone<select name="guests" required></select></label><p class="posti-error" role="alert" aria-live="polite"></p><button class="posti-submit" type="submit">Prepara l’invito</button></form>
+        <form class="posti-form">
+          <div class="posti-form-item"><label for="posti-date">Data</label><span class="posti-field"><input id="posti-date" type="date" name="date" required></span></div>
+          <div class="posti-form-item"><label for="posti-guests">Persone</label><span class="posti-field posti-party"><select id="posti-guests" name="guests" required></select></span></div>
+          <p class="posti-error" role="alert" aria-live="polite"></p>
+          <button class="posti-submit" type="submit">Prepara l’invito</button>
+        </form>
         <p class="posti-demo">È un invito dimostrativo da salvare sul tuo dispositivo.</p>
       </div></div><div class="posti-result" hidden aria-live="polite"><div><p class="posti-kicker">UN PROMEMORIA PER TE</p><h3>Ci vediamo a tavola.</h3><p data-result></p><p>Puoi aggiungere questa serata immaginaria al tuo calendario.</p></div><button type="button" class="posti-download">Scarica il promemoria</button></div>
   </div>`;
