@@ -19,7 +19,7 @@
       </div><div class="posti-plan-footer"><span>TOCCA UN TAVOLO PER SCOPRIRLO</span><span>ORDITO / BOLOGNA</span></div></div>
       <div class="posti-panel"><p class="posti-panel-index">IL TUO TAVOLO / <span data-index>01</span></p><h3 data-name>Alla finestra</h3><p class="posti-seats" data-seats>2 persone</p><p class="posti-detail" data-detail></p><div class="posti-rule"></div><p class="posti-book-title">Immagina la tua serata</p><p class="posti-note">Aperti da giovedì a lunedì, la sera. Il tuo tavolo ti aspetta alle 20:30.</p>
         <form class="posti-form">
-          <div class="posti-form-item"><label for="posti-date">Data</label><span class="posti-field"><input id="posti-date" type="date" name="date" required></span></div>
+          <div class="posti-form-item"><label for="posti-date">Data</label><span class="posti-field posti-date"><span class="posti-date-value" aria-hidden="true"></span><input id="posti-date" type="date" name="date" required></span></div>
           <div class="posti-form-item"><label for="posti-guests">Persone</label><span class="posti-field posti-party"><select id="posti-guests" name="guests" required></select></span></div>
           <p class="posti-error" role="alert" aria-live="polite"></p>
           <button class="posti-submit" type="submit">Prepara l’invito</button>
@@ -43,6 +43,15 @@
   // Resolve a Rome wall-clock time using the zone offset on that date.
   const romeToUtc = (value, hour, minute) => { const [y,m,d] = value.split('-').map(Number); const wall = Date.UTC(y,m-1,d,hour,minute); let instant = wall; for (let i=0;i<3;i++) { const p = romeParts(new Date(instant)); const represented = Date.UTC(+p.year,+p.month-1,+p.day,+p.hour,+p.minute); instant += wall-represented; } return new Date(instant).toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,''); };
   date.min = romeNow().day; date.value = firstAvailable();
+  const dateText = root.querySelector('.posti-date-value');
+  const shortDate = new Intl.DateTimeFormat('it-IT', {
+    day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC'
+  });
+  function displayDate() {
+    dateText.textContent = date.value ? shortDate.format(new Date(date.value + 'T12:00:00Z')) : 'Scegli la data';
+  }
+  displayDate();
+  window.addEventListener('pageshow', displayDate);
   function update(key) {
     selected = key; const t = tables[key];
     root.querySelectorAll('[data-table]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.table === key)));
@@ -55,7 +64,9 @@
     result.hidden = true; error.textContent = '';
   }
   root.querySelectorAll('[data-table]').forEach(button => button.addEventListener('click', () => update(button.dataset.table)));
-  date.addEventListener('input', () => { error.textContent = ''; result.hidden = true; });
+  for (const event of ['input', 'change']) {
+    date.addEventListener(event, () => { displayDate(); error.textContent = ''; result.hidden = true; });
+  }
   guests.addEventListener('change', () => { result.hidden = true; });
   form.addEventListener('submit', e => {
     e.preventDefault();

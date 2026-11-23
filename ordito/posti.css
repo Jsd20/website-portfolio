@@ -45,6 +45,26 @@
   text-align: left;
 }
 #posti .posti-party select { padding-right: 28px; }
+#posti .posti-date-value { display: none; }
+@media (pointer: coarse) {
+  #posti .posti-date-value {
+    display: flex;
+    align-items: center;
+    padding-inline: 10px;
+    font: 400 1rem/1.2 var(--sans, sans-serif);
+    letter-spacing: normal;
+    pointer-events: none;
+  }
+  #posti .posti-date input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+  }
+  #posti .posti-date:focus-within {
+    outline: 2px solid #d4aa66;
+    outline-offset: 3px;
+  }
+}
 #posti .posti-party::after {
   content: "";
   position: absolute;
