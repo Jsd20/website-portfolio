@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#280e15">
+  <meta name="description" content="Lunaria, una pizzeria notturna immaginaria a Napoli. Esplora la carta, gira la pizza e mettiti alla bocca del forno.">
+  <title>Lunaria — Pizzeria notturna, Napoli</title>
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="it_IT">
+  <meta property="og:title" content="Lunaria — Pizzeria notturna, Napoli">
+  <meta property="og:description" content="Napoli, dopo il tramonto. Una pizza da girare tra le mani, un forno a legna e un tavolo per la sera.">
+  <meta property="og:url" content="https://jsd20.github.io/website-portfolio/lunaria/">
+  <meta property="og:image" content="https://jsd20.github.io/website-portfolio/lunaria/assets/lunaria-social.jpg">
+  <meta property="og:image:alt" content="Una Margherita sospesa davanti all’insegna Lunaria">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="./assets/luna.svg" type="image/svg+xml">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="./assets/bodoni-moda-latin-600-normal.woff2">
+  <link rel="preload" as="image" href="./assets/margherita.webp" fetchpriority="high">
+  <link rel="stylesheet" href="./lunaria.css">
+  <link rel="stylesheet" href="./forno.css">
+  <link rel="stylesheet" href="./tavolo.css">
+  <script defer src="./lunaria.js"></script>
+  <script defer src="./pizza-scene.js"></script>
+  <script defer src="./forno.js"></script>
+  <script defer src="./tavolo.js"></script>
+</head>
+<body data-pizza="Margherita Lunaria" data-pizza-key="margherita">
+  <a class="skip" href="#carta">Vai alla carta</a>
+  <svg class="symbols" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="moon-mark" viewBox="0 0 56 52"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M37 5C25 5 17 14 17 26c0 11 8 19 18 21C18 51 3 40 3 26 3 10 18-1 37 5Z"/><path d="M29 8C16 9 9 23 14 35"/></g><path fill="currentColor" d="M40 11c0 9-2 12-10 14 8 1 11 5 10 14 2-9 4-13 12-14-8-2-10-6-12-14Z"/></symbol>
+    <symbol id="spark" viewBox="0 0 24 24"><path d="M12 0c1 8 4 11 12 12-8 1-11 4-12 12C11 16 8 13 0 12c8-1 11-4 12-12Z" fill="currentColor"/></symbol>
+    <symbol id="orbit-icon" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.35"><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-30 12 12)"/><circle cx="12" cy="12" r="6.8"/></g></symbol>
+  </svg>
+  <header class="mast">
+    <a class="mast-brand" href="#inizio" aria-label="Lunaria, inizio"><svg><use href="#moon-mark"/></svg><span>Pizzeria<br>notturna</span></a>
+    <nav aria-label="Navigazione principale"><a href="#carta" data-eclipse>La carta</a><a href="#forno">Il forno</a><a href="#impasto">L’impasto</a></nav>
+    <button class="reserve" type="button" data-prenota>Prenota un tavolo</button>
+  </header>
+  <main>
+    <section class="hero" id="inizio" aria-label="Lunaria, pizzeria notturna">
+      <div class="hero-light" aria-hidden="true"></div>
+      <h1 class="hero-word"><span class="sr">Lunaria</span><svg aria-hidden="true" viewBox="-4 0 1308 202" preserveAspectRatio="none"><text x="0" y="181" textLength="1300" lengthAdjust="spacingAndGlyphs">LUNARIA</text></svg></h1>
+      <div class="hero-orbit" aria-hidden="true"><i></i><b></b></div>
+      <div class="hero-art">
+        <div class="pizza-aura" aria-hidden="true"></div>
+        <div id="pizza-object"><img class="photo-fallback" src="./assets/margherita.webp" alt="Margherita con cornicione dorato, fior di latte, basilico e pomodoro" fetchpriority="high" width="1280" height="1030"><canvas id="pizza-canvas" tabindex="0" aria-label="Pizza interattiva. Trascina o usa le frecce per ruotarla."></canvas></div>
+      </div>
+      <div class="hero-caption">
+        <p class="eyebrow"><span class="ember-dash"></span> Chiaia, Napoli</p>
+        <h2>Napoli, <em>dopo<br> il tramonto.</em></h2>
+        <a class="cream-btn" href="#carta" data-eclipse><svg aria-hidden="true"><use href="#spark"/></svg>Sfoglia la carta</a>
+      </div>
+      <div class="hero-baseline">
+        <span>FORNO A LEGNA <i></i> DALLE 19:00</span>
+        <div class="hero-tools">
+          <button type="button" data-slice-pizza aria-pressed="false"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"><path d="m3 20 7-16c4 1 7 3 10 7L3 20Z"/><path d="M9 7c3 0 6 3 8 5"/><circle cx="9.5" cy="13" r="1"/></svg><span data-slice-label>Stacca uno spicchio</span></button>
+          <button type="button" data-turn-pizza><svg aria-hidden="true"><use href="#orbit-icon"/></svg>Gira la pizza</button>
+        </div>
+      </div>
+    </section>
+    <section class="carta" id="carta" aria-labelledby="menu-title">
+      <div class="section-inner">
+        <div class="menu-head"><div><p class="eyebrow"><span class="ember-dash"></span> Le pizze di Lunaria</p><h2 id="menu-title">La carta <em>della sera.</em></h2></div><p>Scegli una pizza. Tocca gli ingredienti<br class="wide"> per scoprire cosa arriva in tavola.</p></div>
+        <div class="menu-spread">
+          <div class="menu-plate" id="menu-plate">
+            <div class="plate-trace" aria-hidden="true"></div>
+            <div class="plate-art" id="plate-art"><img id="menu-pizza" src="./assets/margherita.webp" alt="Margherita Lunaria" loading="lazy" width="1280" height="1030"></div>
+            <div class="ingredient-pins" id="ingredient-pins"></div>
+            <div class="ingredient-note" id="ingredient-note" role="status" hidden></div>
+          </div>
+          <div class="menu-list">
+            <div class="dish-entry"><button class="dish" id="dish-margherita" aria-expanded="true" aria-controls="detail-margherita" data-dish="margherita"><span>Margherita Lunaria</span><b>€ 9</b></button><div class="dish-detail" id="detail-margherita"><p>Pomodoro San Marzano, fior di latte, basilico fresco e olio extravergine.</p><a href="#forno" class="underlink">Portala al forno</a></div></div>
+            <div class="dish-entry"><button class="dish" id="dish-oro" aria-expanded="false" aria-controls="detail-oro" data-dish="oro"><span>Oro del Vesuvio</span><b>€ 13</b></button><div class="dish-detail" id="detail-oro" hidden><p>Pomodorini gialli, ricotta di bufala, basilico e un filo d’olio a crudo.</p><a href="#forno" class="underlink">Portala al forno</a></div></div>
+            <div class="dish-entry"><button class="dish" id="dish-selva" aria-expanded="false" aria-controls="detail-selva" data-dish="selva"><span>Selva</span><b>€ 14</b></button><div class="dish-detail" id="detail-selva" hidden><p>Provola, salsiccia sbriciolata, friarielli ripassati e peperoncino.</p><a href="#forno" class="underlink">Portala al forno</a></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="forno" aria-label="Il forno di Lunaria"></section>
+    <section id="impasto" class="impasto" aria-labelledby="dough-title">
+      <div class="dough-art"><img src="./assets/impasto.webp" alt="Mani infarinate stendono un disco di impasto nella luce del banco" loading="lazy" width="960" height="1200"></div>
+      <div class="dough-copy"><p class="eyebrow"><span class="ember-dash"></span> Sul banco</p><h2 id="dough-title">Il tempo<br><em>nelle mani.</em></h2><p>La sera prima mescoliamo acqua, farina, lievito e sale. Quando il panetto è pronto, lo apriamo dal centro con i polpastrelli. Il bordo resta gonfio d’aria fino all’incontro con la fiamma.</p><div class="flour-mark" aria-hidden="true"><svg><use href="#moon-mark"/></svg></div></div>
+    </section>
+    <section class="sala" id="sala" aria-labelledby="sala-title"><div class="sala-image"><img src="./assets/sala.webp" alt="Un tavolo per due sotto una lampada a forma di luna" width="1260" height="840" loading="lazy"></div>
+      <div class="sala-copy"><p class="eyebrow"><span class="ember-dash"></span> La sala · Chiaia, Napoli</p><h2 id="sala-title">Un posto <em>per te.</em></h2><p>Dal martedì alla domenica<br>19:00 – 23:00</p><button class="cream-btn" type="button" data-prenota>Prenota un tavolo</button></div>
+    </section>
+  </main>
+  <footer><a class="foot-brand" href="#inizio"><svg aria-hidden="true"><use href="#moon-mark"/></svg>Lunaria</a><span>Pizzeria immaginaria · Napoli</span><a href="#inizio">Torna all’inizio</a></footer>
+  <div id="eclipse-wipe" aria-hidden="true"><div class="corona"></div><i></i></div>
+</body>
+</html>

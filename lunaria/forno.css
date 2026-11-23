@@ -1,0 +1,217 @@
+#forno {
+  --forno-ink: #f7e8d1;
+  --forno-muted: #ddc0ad;
+  --forno-accent: #e29361;
+  --forno-black: #160907;
+  position: relative;
+  display: grid;
+  align-items: center;
+  isolation: isolate;
+  box-sizing: border-box;
+  min-block-size: clamp(40rem, 56vw, 56rem);
+  overflow: hidden;
+  background: var(--forno-black);
+  color: var(--forno-ink);
+}
+
+.lunaria-forno__scene {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background: var(--forno-black) url('./assets/forno.webp') 68% center / cover no-repeat;
+  pointer-events: none;
+}
+
+.lunaria-forno__scene canvas {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+#forno::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  content: '';
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgb(20 7 7 / .96), rgb(20 7 7 / .77) 23%, rgb(20 7 7 / .22) 51%, transparent 71%),
+    linear-gradient(0deg, rgb(20 7 7 / .42), transparent 22%);
+}
+
+.lunaria-forno__inner {
+  box-sizing: border-box;
+  inline-size: min(100%, 102rem);
+  margin-inline: auto;
+  padding: clamp(3.5rem, 8vw, 7.5rem) clamp(1.5rem, 7.5vw, 8.75rem);
+}
+
+.lunaria-forno__copy {
+  max-inline-size: min(43%, 27rem);
+}
+
+.lunaria-forno__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  margin: 0 0 1.25rem;
+  color: var(--forno-accent);
+  font: 500 .875rem/1.25 var(--mono, monospace);
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.lunaria-forno__eyebrow::before {
+  flex: 0 0 1.75rem;
+  block-size: 1px;
+  background: currentColor;
+  content: '';
+}
+
+.lunaria-forno__title {
+  margin: 0 0 clamp(1.6rem, 3.4vw, 2.75rem);
+  color: var(--forno-ink);
+  font: 400 clamp(3.9rem, 7.8vw, 8.5rem)/.88 var(--display, Georgia, serif);
+  letter-spacing: -.055em;
+}
+
+.lunaria-forno__title em {
+  display: block;
+  color: var(--forno-accent);
+  font-weight: inherit;
+}
+
+.lunaria-forno__steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .5rem;
+  max-inline-size: 21rem;
+  margin: 0 0 1.2rem;
+  padding: 0;
+  list-style: none;
+}
+
+.lunaria-forno__steps li {
+  position: relative;
+  border-top: 1px solid rgb(244 202 169 / .24);
+  padding-top: .65rem;
+  color: var(--forno-muted);
+  font: 400 .875rem/1.25 var(--mono, monospace);
+  letter-spacing: .035em;
+}
+
+.lunaria-forno__steps li::after {
+  position: absolute;
+  inset: -1px 0 auto;
+  block-size: 2px;
+  width: 100%;
+  background: var(--forno-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 300ms ease;
+  content: '';
+}
+
+.lunaria-forno__steps li[aria-current='step'] { color: var(--forno-ink); }
+.lunaria-forno__steps li[aria-current='step']::after { transform: scaleX(.45); }
+.lunaria-forno__steps li[data-done]::after { transform: scaleX(1); }
+
+.lunaria-forno__message {
+  min-block-size: 3.45em;
+  max-inline-size: 22rem;
+  margin: 0 0 1rem;
+  color: var(--forno-muted);
+  font: 400 clamp(1rem, 1.4vw, 1.125rem)/1.55 var(--sans, sans-serif);
+}
+
+.lunaria-forno__message strong {
+  color: var(--forno-ink);
+  font-weight: 650;
+}
+
+.lunaria-forno__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .625rem 1.125rem;
+}
+
+.lunaria-forno__primary,
+.lunaria-forno__reset {
+  -webkit-tap-highlight-color: transparent;
+  min-block-size: 3rem;
+  border: 1px solid transparent;
+  border-radius: 0;
+  font: 650 1rem/1.2 var(--sans, sans-serif);
+  cursor: pointer;
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.lunaria-forno__primary {
+  min-inline-size: 10.5rem;
+  padding: .75rem 1.35rem;
+  background: var(--forno-ink);
+  color: #260d13;
+}
+
+.lunaria-forno__primary:not([aria-disabled='true']):hover {
+  border-color: var(--forno-accent);
+  background: var(--forno-accent);
+}
+
+.lunaria-forno__primary[aria-disabled='true'] {
+  border-color: rgb(247 232 209 / .31);
+  background: rgb(26 13 10 / .7);
+  color: var(--forno-ink);
+  cursor: progress;
+}
+
+.lunaria-forno__reset {
+  padding: .75rem .25rem;
+  background: transparent;
+  color: var(--forno-ink);
+  text-decoration: underline;
+  text-underline-offset: .3em;
+}
+
+.lunaria-forno__reset:hover { color: var(--forno-accent); }
+.lunaria-forno__reset[hidden] { display: none; }
+
+.lunaria-forno__actions button:focus-visible {
+  outline: 2px solid var(--forno-accent);
+  outline-offset: .28rem;
+}
+
+@media (max-width: 760px) {
+  #forno {
+    --forno-scene-height: clamp(14rem, min(105vw, 58svh), 31rem);
+    min-block-size: 0;
+    align-items: start;
+  }
+
+  .lunaria-forno__scene {
+    inset-block-end: auto;
+    block-size: var(--forno-scene-height);
+  }
+
+  #forno::before {
+    inset-block-end: auto;
+    block-size: calc(var(--forno-scene-height) + 1px);
+    background: linear-gradient(0deg, var(--forno-black) 0%, rgb(22 9 7 / .82) 6%, rgb(22 9 7 / .10) 16%, transparent 28%);
+  }
+
+  .lunaria-forno__inner {
+    padding: calc(var(--forno-scene-height) - 1.5rem) clamp(1.25rem, 6vw, 3rem) 3rem;
+  }
+
+  .lunaria-forno__copy { max-inline-size: 32rem; }
+  .lunaria-forno__eyebrow { margin-bottom: .9rem; }
+  .lunaria-forno__title { margin-bottom: 1.65rem; font-size: clamp(3.5rem, 12vw, 5.25rem); }
+  .lunaria-forno__title em { display: inline; white-space: nowrap; }
+  .lunaria-forno__message { min-block-size: 3.15em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lunaria-forno__steps li::after,
+  .lunaria-forno__actions button { transition: none; }
+}
