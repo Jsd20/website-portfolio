@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#152f52">
+  <title>Ordito — Osteria a Bologna</title>
+  <meta name="description" content="Una sera da Ordito. Tre momenti di cucina bolognese, due generazioni allo stesso banco e un posto a tavola. Osteria immaginaria.">
+  <meta property="og:title" content="Una sera da Ordito"><meta property="og:description" content="Il taglio della sfoglia, il brodo caldo e la tavola sotto i portici.">
+  <meta property="og:type" content="website"><meta property="og:locale" content="it_IT"><meta property="og:image" content="https://jsd20.github.io/website-portfolio/ordito/assets/ordito-social.jpg">
+  <meta property="og:image:alt" content="La sfoglia sul tagliere di Ordito, le mani e il coltello nella luce di sera"><meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/marchio.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/gesto.webp" as="image" fetchpriority="high">
+  <link rel="preload" href="assets/fraunces-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="stile.css"><link rel="stylesheet" href="carta.css"><link rel="stylesheet" href="posti.css">
+  <script defer src="assets/anime.min.js"></script><script defer src="ordito.js"></script><script defer src="carta.js"></script><script defer src="posti.js"></script>
+</head>
+<body>
+  <a class="skip" href="#storia">Vai al racconto</a>
+  <header class="masthead">
+    <a class="brand" href="#inizio" aria-label="Ordito, inizio"><img src="assets/marchio.svg" width="43" height="43" alt=""><span>Ordito<i>.</i></span></a>
+    <nav aria-label="Navigazione"><a href="#storia">Il racconto</a><a href="#carta">La carta</a><a href="#posti">La sala</a></nav>
+    <a class="seat-link" href="#posti">Scegli un tavolo</a>
+  </header>
+  <main>
+    <section class="service" id="inizio" aria-label="Una sera da Ordito">
+      <div class="cinema-frame" id="fotogramma">
+        <div class="stage-image"><img id="scene-photo" src="assets/gesto.webp" width="1920" height="1080" alt="Mani di sfoglina tagliano le tagliatelle sul banco infarinato." fetchpriority="high"></div>
+        <div class="shade"></div><div class="loom" aria-hidden="true"></div>
+        <div class="top-caption"><span>Osteria di Bologna</span><span class="since">Dal 1982</span></div>
+        <div class="hero-copy" aria-live="polite" aria-atomic="true">
+          <h1><span id="heading-first">Una sera</span><em id="heading-last">da Ordito.</em></h1>
+          <p id="scene-detail">Prima che si apra la porta, sul banco c’è già il rumore del coltello.</p>
+        </div>
+        <button class="film-trigger" type="button" aria-haspopup="dialog"><span class="play-disc" aria-hidden="true"><i></i></span><span>Guarda il film<small>00:12</small></span></button>
+      </div>
+      <div class="chapter-rail" role="group" aria-label="Tre momenti della sera">
+        <button class="chapter" data-shot="0" aria-pressed="true"><img src="assets/gesto.webp" alt=""><span><small>16:40</small><strong>Il taglio</strong></span></button>
+        <button class="chapter" data-shot="1" aria-pressed="false"><img src="assets/brodo.webp" alt=""><span><small>19:10</small><strong>Il brodo</strong></span></button>
+        <button class="chapter" data-shot="2" aria-pressed="false"><img src="assets/tavola.webp" alt=""><span><small>20:30</small><strong>A tavola</strong></span></button>
+      </div>
+    </section>
+    <section id="storia" class="family" aria-labelledby="family-heading">
+      <div class="story-copy">
+        <p class="folio">Il quaderno di famiglia</p>
+        <h2 id="family-heading">La stessa <em>finestra.</em></h2>
+        <p>Nel 1982 Ada sistemò il tagliere vicino al vetro. Quando la luce passava attraverso la sfoglia, era abbastanza sottile.</p>
+        <p>Oggi sua nipote Nina lavora lì. Ha cambiato il menu e il colore dei grembiuli. Per capire quando fermarsi, alza ancora gli occhi verso la finestra.</p>
+        <a href="#carta" class="ink-link">Sfoglia la carta</a>
+      </div>
+      <figure class="archive">
+        <div class="archive-image">
+          <img width="1150" height="862" loading="lazy" src="assets/nina.webp" alt="Nina nello stesso punto della cucina, oggi.">
+          <img width="1150" height="862" loading="lazy" class="then" src="assets/ada.webp" alt="Ada nel 1982 tira la sfoglia vicino alla finestra.">
+          <span class="photo-year first">1982</span><span class="photo-year last">Oggi</span>
+          <span class="seam" aria-hidden="true"><i>‹ ›</i></span>
+          <input class="time-slider" type="range" min="0" max="100" value="48" aria-label="Confronta le foto di Ada nel 1982 e Nina oggi" aria-valuetext="48 per cento di foto storica">
+        </div>
+        <figcaption><span>Dal banco di Ada a quello di Nina</span><span>Trascina il filo</span></figcaption>
+      </figure>
+    </section>
+    <section id="carta" aria-label="La carta dell’osteria"></section>
+    <section id="posti" aria-label="Scegli il tuo posto"></section>
+  </main>
+  <footer class="colophon"><div><a class="footer-word" href="#inizio">Ordito<i>.</i></a><p>Osteria immaginaria sotto i portici di Bologna.</p></div><div><span>La sera, da giovedì a lunedì</span><p>Dalle 19:30 · Bologna</p></div><a href="#inizio">Torna all’inizio</a></footer>
+  <dialog id="film" aria-labelledby="film-title">
+    <div class="film-heading"><span id="film-title">Ordito <i>/</i> Una sera in cucina</span><button type="button" class="close-film" aria-label="Chiudi il film">Chiudi <b aria-hidden="true">×</b></button></div>
+    <video controls playsinline preload="none" poster="assets/gesto.webp" aria-label="Film di dodici secondi, dal taglio della sfoglia alla tavola apparecchiata" src="assets/servizio.mp4"><track kind="captions" srclang="it" label="Suoni della cucina" src="assets/servizio-it.vtt"></video>
+  </dialog>
+</body>
+</html>
