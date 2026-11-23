@@ -63,6 +63,7 @@
                   <li>
                     <div class="carta-dish"><strong>${name}</strong><span>${price} €</span></div>
                     <p>${description}</p>
+                    ${name === 'Tagliatelle al ragù' ? '<button type="button" class="recipe-open" aria-haspopup="dialog">La ricetta della sfoglia</button>' : ''}
                   </li>
                 `).join('')}
               </ul>
@@ -80,6 +81,21 @@
   `;
 
   const book = carta.querySelector('.carta-book');
+  const recipe = document.querySelector('#ricetta');
+  const recipeButton = book.querySelector('.recipe-open');
+  recipeButton.addEventListener('click', () => recipe.showModal());
+  recipe.querySelector('.recipe-close').addEventListener('click', () => recipe.close());
+  recipe.addEventListener('close', () => recipeButton.focus({preventScroll:true}));
+  const portionButtons = [...recipe.querySelectorAll('[data-portions]')];
+  const save = recipe.querySelector('.recipe-save');
+  for (const button of portionButtons) button.addEventListener('click', () => {
+    const n = Number(button.dataset.portions);
+    for (const choice of portionButtons) choice.setAttribute('aria-pressed',String(choice===button));
+    recipe.querySelector('[data-flour]').textContent = (100*n)+' g';
+    recipe.querySelector('[data-eggs]').textContent = n+' uova';
+    save.href = 'assets/tagliatelle-'+n+'.pdf';
+    save.querySelector('small').textContent = 'PDF · '+n+' persone';
+  });
   const controls = carta.querySelector('.carta-controls');
   const previous = controls.querySelector('.carta-prev');
   const next = controls.querySelector('.carta-next');
@@ -216,7 +232,7 @@
   next.addEventListener('click', () => select(active + 1, true));
 
   book.addEventListener('pointerdown', (event) => {
-    if (!event.isPrimary || event.button !== 0 || !book.animate) return;
+    if (!event.isPrimary || event.button !== 0 || !book.animate || event.target.closest('button')) return;
     clearTurn();
     drag = { id: event.pointerId, x: event.clientX, y: event.clientY, target: null };
   });

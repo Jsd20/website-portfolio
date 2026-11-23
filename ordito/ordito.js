@@ -83,9 +83,100 @@
     slider.setAttribute('aria-valuetext',slider.value+' per cento di foto storica');
   });
   const film = one('#film'), player = film.querySelector('video'), playButton = one('.film-trigger');
+  const wheel = one('.crank'), timeDisplay = one('.crank-time');
+  const cuts = Array.from(film.querySelectorAll('[data-cut]'));
+  const step = 1 / 25; // One frame of the local 25 fps master.
+  let drag = null, frameRequest = 0, pendingPosition = null, deferredSeek = null;
+  const length = () => Number.isFinite(player.duration) ? player.duration : 12;
+  const clock = seconds => '00:' + String(Math.floor(seconds)).padStart(2, '0');
+  function showPosition(time = pendingPosition ?? player.currentTime) {
+    const position = Math.min(length(), Math.max(0, time));
+    if (!motion.matches || player.paused) wheel.style.setProperty('--turn', (position * 90) + 'deg');
+    const whole = Math.floor(position);
+    if (timeDisplay.dataset.second !== String(whole)) {
+      timeDisplay.dataset.second = whole;
+      timeDisplay.textContent = clock(position) + ' / ' + clock(length());
+      cuts.forEach((cut,index) => {
+        if (index === Math.min(2, Math.floor(position/4))) cut.setAttribute('aria-current','true');
+        else cut.removeAttribute('aria-current');
+      });
+    }
+    if (player.paused || wheel.getAttribute('aria-valuenow') !== String(whole)) {
+      const value = player.paused ? +position.toFixed(2) : whole;
+      wheel.setAttribute('aria-valuenow', value);
+      wheel.setAttribute('aria-valuetext', value.toLocaleString('it-IT') + ' secondi');
+    }
+  }
+  function seek(time) {
+    const position = Math.min(Math.max(0,length()-step), Math.max(0,time));
+    pendingPosition = position;
+    // Let the decoder finish its current seek; keep only the newest gesture.
+    if (player.seeking) deferredSeek = position;
+    else if (!player.readyState || Math.abs(player.currentTime-position)>.001) {
+      deferredSeek = null;
+      player.currentTime = position;
+    } else pendingPosition = null;
+    showPosition(position);
+    return position;
+  }
+  function animateWheel() {
+    cancelAnimationFrame(frameRequest);
+    showPosition();
+    if (film.open && !player.paused && !player.ended && !motion.matches && !document.hidden)
+      frameRequest = requestAnimationFrame(animateWheel);
+  }
+  player.addEventListener('play',animateWheel);
+  player.addEventListener('seeked',() => {
+    if (player.seeking) return;
+    if (deferredSeek !== null) {
+      const target = deferredSeek;
+      deferredSeek = null;
+      seek(target);
+      return;
+    }
+    pendingPosition=null;
+    showPosition();
+  });
+  ['timeupdate','pause','loadedmetadata','ended'].forEach(event =>
+    player.addEventListener(event,() => showPosition()));
+  document.addEventListener('visibilitychange',animateWheel);
+  motion.addEventListener('change',animateWheel);
+  cuts.forEach(button => button.addEventListener('click',() => {
+    seek(Number(button.dataset.cut));
+    player.play().catch(() => {});
+  }));
+  function angleAt(e) {
+    const b = wheel.getBoundingClientRect();
+    const x = e.clientX-b.left-b.width/2, y = e.clientY-b.top-b.height/2;
+    return Math.hypot(x,y) < b.width*.12 ? null : Math.atan2(y,x);
+  }
+  wheel.addEventListener('pointerdown', e => {
+    if (!e.isPrimary || e.button !== 0 || drag) return;
+    player.pause();
+    drag = {id:e.pointerId, angle:angleAt(e), position:pendingPosition ?? player.currentTime};
+    wheel.setPointerCapture(e.pointerId);
+  });
+  wheel.addEventListener('pointermove', e => {
+    if (!drag || drag.id !== e.pointerId) return;
+    const angle = angleAt(e);
+    if (angle !== null && drag.angle !== null) {
+      const raw = angle-drag.angle;
+      const delta = Math.atan2(Math.sin(raw),Math.cos(raw));
+      drag.position = seek(drag.position + delta*2/Math.PI);
+    }
+    drag.angle = angle;
+  });
+  wheel.addEventListener('lostpointercapture',() => {drag=null;});
+  wheel.addEventListener('keydown', e => {
+    const amount = e.shiftKey ? 1 : step;
+    const keys = {ArrowRight:amount,ArrowUp:amount,ArrowLeft:-amount,ArrowDown:-amount,
+      PageUp:4,PageDown:-4,Home:-length(),End:length()};
+    if (!(e.key in keys)) return;
+    e.preventDefault(); player.pause(); seek((pendingPosition ?? player.currentTime)+keys[e.key]);
+  });
   playButton.addEventListener('click', () => {
     if (!film.open) film.showModal();
-    player.currentTime=0;
+    seek(0);
     player.play().catch(() => {});
   });
   one('.close-film').addEventListener('click', () => film.close());
@@ -94,5 +185,17 @@
     const box=film.getBoundingClientRect();
     if(e.clientX<box.left || e.clientX>box.right || e.clientY<box.top || e.clientY>box.bottom) film.close();
   });
-  film.addEventListener('close', () => {player.pause(); playButton.focus({preventScroll:true});});
+  film.addEventListener('close', () => {
+    player.pause(); cancelAnimationFrame(frameRequest); drag=null;
+    if (film.returnValue === 'menu') {
+      const primi = one('#carta-tab-1');
+      primi.click(); primi.focus({preventScroll:true});
+      one('#carta').scrollIntoView({block:'start'});
+    } else playButton.focus({preventScroll:true});
+    film.returnValue = '';
+  });
+  one('.film-menu').addEventListener('click', e => {
+    e.preventDefault();
+    film.close('menu');
+  });
 })();

@@ -11,8 +11,8 @@
   <link rel="icon" href="assets/marchio.svg" type="image/svg+xml">
   <link rel="preload" href="assets/gesto.webp" as="image" fetchpriority="high">
   <link rel="preload" href="assets/fraunces-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="stile.css"><link rel="stylesheet" href="carta.css"><link rel="stylesheet" href="posti.css?v=3">
-  <script defer src="assets/anime.min.js"></script><script defer src="ordito.js"></script><script defer src="carta.js"></script><script defer src="posti.js?v=3"></script>
+  <link rel="stylesheet" href="stile.css?v=moviola"><link rel="stylesheet" href="carta.css"><link rel="stylesheet" href="posti.css?v=3">
+  <script defer src="assets/anime.min.js"></script><script defer src="ordito.js?v=moviola"></script><script defer src="carta.js?v=quaderno"></script><script defer src="posti.js?v=3"></script>
 </head>
 <body>
   <a class="skip" href="#storia">Vai al racconto</a>
@@ -31,7 +31,10 @@
           <h1><span id="heading-first">Una sera</span><em id="heading-last">da Ordito.</em></h1>
           <p id="scene-detail">Prima che si apra la porta, sul banco c’è già il rumore del coltello.</p>
         </div>
-        <button class="film-trigger" type="button" aria-haspopup="dialog"><span class="play-disc" aria-hidden="true"><i></i></span><span>Guarda il film<small>00:12</small></span></button>
+        <button class="film-trigger film-print" type="button" aria-haspopup="dialog" aria-label="Guarda il film Una sera in cucina, 12 secondi">
+          <span class="proof-strip" aria-hidden="true"><img src="assets/provino.webp" width="708" height="128" alt=""><i></i></span>
+          <span class="proof-label">Guarda il film<small>00:12</small></span>
+        </button>
       </div>
       <div class="chapter-rail" role="group" aria-label="Tre momenti della sera">
         <button class="chapter" data-shot="0" aria-pressed="true"><img src="assets/gesto.webp" alt=""><span><small>16:40</small><strong>Il taglio</strong></span></button>
@@ -65,6 +68,36 @@
   <dialog id="film" aria-labelledby="film-title">
     <div class="film-heading"><span id="film-title">Ordito <i>/</i> Una sera in cucina</span><button type="button" class="close-film" aria-label="Chiudi il film">Chiudi <b aria-hidden="true">×</b></button></div>
     <video controls playsinline preload="none" poster="assets/film-poster.webp" aria-label="Una sera in cucina. Dalla farina alla sfoglia, fino al piatto servito." src="assets/servizio.mp4?v=2"><track kind="captions" srclang="it" label="Suoni della cucina" src="assets/servizio-it.vtt?v=2"></video>
+    <div class="editing-desk">
+      <div class="film-cuts" role="group" aria-label="Salta a una scena">
+        <button type="button" data-cut="0" aria-current="true"><span>00:00</span>La farina</button>
+        <button type="button" data-cut="4"><span>00:04</span>La sfoglia</button>
+        <button type="button" data-cut="8"><span>00:08</span>In tavola</button>
+      </div>
+      <div class="crank-control">
+        <div><span class="crank-label" id="crank-name">Gira la manovella</span><span class="crank-time" aria-hidden="true">00:00 / 00:12</span></div>
+        <div class="crank" tabindex="0" role="slider" aria-labelledby="crank-name" aria-describedby="crank-help" aria-valuemin="0" aria-valuemax="12" aria-valuenow="0" aria-valuetext="0 secondi">
+          <span class="crank-wheel" aria-hidden="true"><i></i></span>
+        </div>
+        <span class="sr-note" id="crank-help">Ruota per scorrere il film a mano. Da tastiera usa le frecce.</span>
+      </div>
+    </div>
+    <div class="film-foot"><a href="#carta" class="film-menu">Le tagliatelle in carta</a></div>
+  </dialog>
+  <dialog id="ricetta" aria-labelledby="ricetta-titolo">
+    <article class="recipe-page">
+      <header class="recipe-head"><span>Ordito <i>/</i> Quaderno di Ada</span><button type="button" class="recipe-close">Chiudi</button></header>
+      <h2 id="ricetta-titolo">Le tagliatelle <em>di casa.</em></h2>
+      <p class="recipe-voice">«Stendila vicino alla finestra. Quando passa la luce, puoi posare il mattarello.»</p>
+      <div class="recipe-portions"><span>Persone a tavola</span><div role="group" aria-label="Numero di persone"><button type="button" data-portions="2" aria-pressed="true">2</button><button type="button" data-portions="4" aria-pressed="false">4</button><button type="button" data-portions="6" aria-pressed="false">6</button></div></div>
+      <p class="recipe-ingredients" aria-live="polite"><strong data-flour>200 g</strong> di farina 00 <i>e</i> <strong data-eggs>2 uova</strong> medie</p>
+      <ol class="recipe-method">
+        <li><b>Impasta.</b> Apri una fontana nella farina, rompi le uova al centro e incorporale con la forchetta. Lavora con le mani per circa 10 minuti. Copri e lascia riposare 30 minuti.</li>
+        <li><b>Stendi.</b> Infarina appena il tagliere. Tira la sfoglia fino a circa 1 mm e lasciala asciugare quel tanto che basta perché non si attacchi.</li>
+        <li><b>Taglia.</b> Arrotola la sfoglia senza stringerla. Taglia nastri larghi circa 7 mm e aprili con le dita. Cuoci in acqua salata e assaggia dopo 2 minuti.</li>
+      </ol>
+      <a class="recipe-save" href="assets/tagliatelle-2.pdf" download>Salva la ricetta <small>PDF · 2 persone</small></a>
+    </article>
   </dialog>
 </body>
 </html>
