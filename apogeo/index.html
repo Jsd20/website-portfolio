@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080911">
+  <meta name="description" content="Apogeo, un osservatorio alpino immaginario. Esplora Orione, Cigno e Cassiopea in un atlante celeste interattivo.">
+  <title>APOGEO — Il cielo comincia qui</title>
+  <link rel="preload" href="./assets/night.webp" as="image">
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./sky.js"></script>
+</head>
+<body>
+  <a class="skip" href="#contenuto">Salta al contenuto</a>
+  <header class="masthead frame" id="inizio">
+    <a class="brand" href="#inizio" aria-label="Apogeo, inizio pagina"><span class="brand-mark" aria-hidden="true"><i></i></span>APOGEO</a>
+    <nav class="main-nav" aria-label="Navigazione principale">
+      <a href="#atlante">Atlante celeste</a>
+      <a href="#osservatorio">L’osservatorio</a>
+    </nav>
+  </header>
+  <main id="contenuto">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-picture" aria-hidden="true"></div>
+      <div class="hero-content frame">
+        <p class="eyebrow"><span class="signal" aria-hidden="true"></span> Osservatorio alpino immaginario</p>
+        <h1 id="hero-title">Il cielo<br><em>comincia qui.</em></h1>
+        <p class="hero-copy">Una cupola tra le Dolomiti. Tre costellazioni da ritrovare. Alza lo sguardo e lascia che gli occhi si abituino al buio.</p>
+        <a class="primary" href="#atlante"><span class="spark" aria-hidden="true">✦</span> Esplora il cielo</a>
+      </div>
+      <a class="hero-sighting" data-sighting="cigno" href="#cigno" aria-label="Esplora il Cigno nell’atlante"><span class="reticle" aria-hidden="true"></span>Cigno · Nell’atlante</a>
+      <div class="hero-foot frame">
+        <a class="hero-scroll" href="#atlante"><span class="scroll-mark" aria-hidden="true"></span> Scorri per esplorare</a>
+        <span class="hero-credit"><span class="corner-mark" aria-hidden="true">⊹</span> Dolomiti · Veduta immaginaria</span>
+      </div>
+    </section>
+
+    <section class="atlas section frame" aria-labelledby="atlas-title" id="atlante">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><span class="signal" aria-hidden="true"></span> Atlante celeste</p>
+          <h2 id="atlas-title">Orienta <em>lo sguardo.</em></h2>
+        </div>
+        <p>Scegli una costellazione e segui le sue stelle. Poi muoviti liberamente sulla sfera celeste per vedere come cambia la prospettiva.</p>
+      </div>
+
+      <div class="console" id="sky-console">
+        <div class="stage">
+          <div class="stage-top">
+            <span><span class="stage-dot" aria-hidden="true"></span> Sfera celeste</span>
+            <span class="coordinates" id="coordinates" aria-hidden="true"></span>
+          </div>
+          <canvas id="sky" width="880" height="520" aria-label="Vista interattiva della sfera celeste" aria-describedby="sky-help" tabindex="0" hidden></canvas>
+          <p class="sky-fallback" id="sky-fallback">Le costellazioni sono descritte nel pannello accanto. Le stelle principali sono elencate sotto ciascuna figura.</p>
+          <div class="stage-bottom js-only">
+            <p id="sky-help">Trascina per ruotare <span class="help-divider" aria-hidden="true">·</span> <span class="keyboard-tip">Frecce per orientarti, + e − per lo zoom</span><span class="touch-tip">Pizzica per ingrandire</span></p>
+            <div class="map-tools" role="group" aria-label="Controlli della mappa">
+              <button type="button" data-zoom="-1" aria-label="Riduci ingrandimento" title="Riduci ingrandimento">−</button>
+              <button type="button" data-zoom="1" aria-label="Aumenta ingrandimento" title="Aumenta ingrandimento">+</button>
+              <button type="button" id="recenter" aria-label="Ricentra la costellazione" title="Ricentra la costellazione">⊙</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sky-panel">
+          <div class="picker">
+            <p class="panel-label">Scegli una costellazione</p>
+            <div class="constellations" aria-label="Costellazioni">
+              <a href="#orione" data-constellation="orione" id="pick-orione"><span class="small-star" aria-hidden="true">✧</span> Orione</a>
+              <a href="#cigno" data-constellation="cigno" id="pick-cigno"><span class="small-star" aria-hidden="true">✧</span> Cigno</a>
+              <a href="#cassiopea" data-constellation="cassiopea" id="pick-cassiopea"><span class="small-star" aria-hidden="true">✧</span> Cassiopea</a>
+            </div>
+          </div>
+
+          <div class="constellation-copy">
+            <article class="constellation-detail" id="orione" aria-labelledby="orione-title">
+              <p class="season">Cielo invernale</p>
+              <h3 id="orione-title">Orione</h3>
+              <p>Cerca le tre stelle allineate della cintura. Betelgeuse, dal bagliore rossastro, segna una spalla. Rigel brilla all’estremità opposta.</p>
+              <p class="star-list">Betelgeuse · Rigel · Bellatrix</p>
+            </article>
+            <article class="constellation-detail" id="cigno" aria-labelledby="cigno-title">
+              <p class="season">Cielo estivo</p>
+              <h3 id="cigno-title">Cigno</h3>
+              <p>Segui la Croce del Nord lungo la Via Lattea. Deneb segna la coda del Cigno e Albireo si trova all’altra estremità, dalla parte del becco.</p>
+              <p class="star-list">Deneb · Sadr · Albireo</p>
+            </article>
+            <article class="constellation-detail" id="cassiopea" aria-labelledby="cassiopea-title">
+              <p class="season">Cielo del nord</p>
+              <h3 id="cassiopea-title">Cassiopea</h3>
+              <p>Cinque stelle disegnano una W. Mentre la figura ruota attorno al polo celeste, può apparire capovolta, con la forma di una M.</p>
+              <p class="star-list">Caph · Schedar · Ruchbah</p>
+            </article>
+            <p class="star-info js-only" id="star-info" aria-live="polite"></p>
+          </div>
+
+          <div class="panel-foot js-only">
+            <label class="switch"><input id="guides" type="checkbox" checked><span class="switch-track" aria-hidden="true"></span><span>Linee guida</span></label>
+          </div>
+        </div>
+      </div>
+      <p class="atlas-note">Campo stellare ricostruito, con posizioni approssimate per le stelle delle figure. La vista è indipendente da luogo, data e ora. <a href="https://www.iau.org/IAU/Astronomy-FAQs/Constellations.aspx">Carte delle costellazioni IAU</a></p>
+    </section>
+
+    <section class="observatory" id="osservatorio" aria-labelledby="observatory-title">
+      <div class="observatory-inner frame">
+        <div class="observatory-intro">
+          <p class="eyebrow"><span class="signal" aria-hidden="true"></span> L’osservatorio</p>
+          <h2 id="observatory-title">Una notte<br><em>in quota.</em></h2>
+          <p>APOGEO è un luogo immaginario, ispirato alle notti limpide delle Dolomiti. Per iniziare bastano tre gesti che puoi provare ovunque si veda il cielo.</p>
+        </div>
+        <ol class="field-notes">
+          <li>
+            <span class="note-symbol eye" aria-hidden="true"></span>
+            <div><h3>Lascia spazio al buio</h3><p>Spegni le luci vicine e riponi il telefono. Con il passare dei minuti inizierai a distinguere stelle più deboli.</p></div>
+          </li>
+          <li>
+            <span class="note-symbol cross" aria-hidden="true"></span>
+            <div><h3>Parti da una forma</h3><p>Una cintura, una croce, una W. Scegli una figura facile da ricordare e cerca i suoi punti più luminosi.</p></div>
+          </li>
+          <li>
+            <span class="note-symbol scope" aria-hidden="true"></span>
+            <div><h3>Segui la figura</h3><p>Torna a guardarla più tardi. Rispetto alle cime o ai tetti, la ritroverai in una posizione diversa.</p></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer frame">
+    <a class="brand" href="#inizio" aria-label="Apogeo, torna all’inizio"><span class="brand-mark" aria-hidden="true"><i></i></span>APOGEO</a>
+    <p>Un’esperienza digitale di osservazione del cielo</p>
+    <a class="back-top" href="#inizio">Torna all’inizio</a>
+  </footer>
+</body>
+</html>

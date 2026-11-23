@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e9e9e2">
+  <meta name="description" content="Tonale T–01. Un giradischi virtuale da ruotare, scomporre e ascoltare. Uno studio di forma, materia e suono.">
+  <title>Tonale — T–01, materia sonora</title>
+  <link rel="icon" href="./assets/tonale.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./waveforms.js"></script>
+  <script defer src="./player.js"></script>
+  <script type="module" src="./studio.js"></script>
+</head>
+<body>
+  <a class="skip" href="#sala">Vai alla sala d’ascolto</a>
+  <header class="mast">
+    <a class="wordmark" href="#strumento" aria-label="Tonale, inizio"><i class="logo-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></i>tonale<span>.</span></a>
+    <nav aria-label="Navigazione"><a href="#strumento">Strumento</a><a href="#anatomia">Anatomia</a><a href="#sala">Sala d’ascolto</a></nav>
+    <button class="sound-switch" data-play aria-pressed="false"><i class="mini-eq" aria-hidden="true"><i></i><i></i><i></i><i></i></i><span data-play-label="sound">Audio off</span></button>
+  </header>
+  <main>
+    <section class="journey" id="strumento" aria-label="Tonale T–01, giradischi interattivo">
+      <div id="anatomia" class="anatomy-anchor"></div>
+      <div class="stage">
+        <div class="stage-head"><span class="model-badge">T–01</span><span class="meta">GIRADISCHI ANALOGICO</span></div>
+        <div class="stage-copy">
+          <div class="chapter-intro">
+            <h1>Materia<br><em>sonora.</em></h1>
+            <p>Un giradischi in noce e alluminio.<br> <span id="gesture-copy">Tocca un solco per posare la puntina.</span></p>
+            <div class="actions"><button class="play-button" data-play aria-pressed="false"><i class="play-glyph" aria-hidden="true"></i><span data-play-label="full">Ascolta il disco</span></button><a class="minor-link" href="#anatomia">Esplora l’anatomia</a></div>
+          </div>
+          <div class="chapter-detail" hidden>
+            <span class="meta chapter-counter"></span>
+            <h2 class="layer-title"></h2>
+            <p class="layer-description"></p>
+            <div class="layer-steps" aria-label="Componenti del giradischi">
+              <button data-layer="1" aria-label="Mostra il vinile">01</button><button data-layer="2" aria-label="Mostra il piatto">02</button><button data-layer="3" aria-label="Mostra il telaio">03</button>
+            </div>
+            <a class="minor-link" href="#strumento">Ricomponi T–01</a>
+          </div>
+        </div>
+        <div class="viewer" id="viewer">
+          <img class="poster" src="./assets/tonale-studio.webp" alt="Giradischi Tonale T–01 in noce e alluminio, con disco in vinile nero e etichetta arancio">
+          <canvas id="turntable" tabindex="0" role="img" aria-label="Modello tridimensionale del giradischi. Usa i tasti freccia per ruotare e Home per tornare alla vista iniziale."></canvas>
+          <span id="hardware-tip" class="hardware-tip" hidden></span>
+        </div>
+        <div class="stage-foot">
+          <div class="stage-position"><span class="track-line"><i></i></span><span class="meta phase-label">STRUMENTO</span></div>
+          <div class="view-tools"><span class="view-tip">Trascina per ruotare</span><button data-orbit="-1" aria-label="Ruota a sinistra">↶</button><button data-orbit="1" aria-label="Ruota a destra">↷</button><button class="reset" data-reset>Ripristina</button></div>
+        </div>
+      </div>
+    </section>
+    <section class="listening" id="sala" aria-labelledby="room-title">
+      <div class="listen-heading"><span class="meta"><i class="signal" aria-hidden="true"></i> SESSIONE STEREO</span><span class="meta">TONALE / T–01</span></div>
+      <div class="listen-grid">
+        <div class="listen-copy"><h2 id="room-title">Sala<br><em>d’ascolto.</em></h2><p>Due incisioni originali per il T–01. Scegli un lato e lascia scendere la puntina.</p>
+          <div class="side-tabs" aria-label="Lato del disco"><button data-side="0" aria-pressed="true">Lato A</button><button data-side="1" aria-pressed="false">Lato B</button></div>
+        </div>
+        <div class="console">
+          <div class="console-display"><span class="meta side-label">LATO A</span><span class="meta">STEREO</span></div>
+          <div class="track-title"><h3 id="track-title">Polvere</h3><span class="track-time" id="track-time">00:00</span></div>
+          <div class="wave-area"><canvas id="waveform" aria-hidden="true"></canvas><input id="seek" type="range" min="0" max="100" step=".1" value="0" aria-label="Posizione del brano"></div>
+          <div class="transport"><button class="transport-play" data-play aria-pressed="false"><i class="play-glyph" aria-hidden="true"></i><span data-play-label="short">Riproduci</span></button><label class="volume">Volume <input id="volume" type="range" min="0" max="1" step=".01" value=".62"></label></div>
+          <button type="button" class="speed-control" id="speed-control" aria-label="Velocità del piatto, 33 giri. Passa a 45 giri.">33⅓ <span>giri/min</span></button>
+          <p class="audio-status" role="status" hidden></p>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer><a class="wordmark" href="#strumento">tonale<span>.</span></a><span>Studio virtuale di design sonoro</span><a href="#strumento">Torna allo strumento</a></footer>
+</body>
+</html>
